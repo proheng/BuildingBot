@@ -1,0 +1,18 @@
+{
+    "name": "EchoBot1",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages",
+            "id": "ce857000-a15e-11e9-be7e-3dc169ed2c7d",
+            "name": "development"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "C:\\Users\\hezhi\\source\\repos\\EchoBot1\\EchoBot1.bot"
+}
