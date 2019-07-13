@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using EchoBot1.Bots;
+using EchoBot1.Services;
 
 namespace EchoBot1
 {
@@ -36,8 +37,26 @@ namespace EchoBot1
             // Create the Bot Framework Adapter.
             services.AddSingleton<IBotFrameworkHttpAdapter, BotFrameworkHttpAdapter>();
 
+            // Configure State
+            ConfigureState(services);
+
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, EchoBot>();
+            services.AddTransient<IBot, GreetingBot>();
+        }
+
+        public void ConfigureState(IServiceCollection services)
+        {
+            // Create the storage we'll be using for User and Conversation state. (Memory is greate fo testing purpose.)
+            services.AddSingleton<IStorage, MemoryStorage>();
+
+            // Create the User state
+            services.AddSingleton<UserState>();
+
+            // Creaste the Conversation State
+            services.AddSingleton<ConversationState>();
+
+            // Create an instance of the state service
+            services.AddSingleton<BotStateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
