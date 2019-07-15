@@ -1,5 +1,6 @@
 ﻿using EchoBot1.Models;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,12 @@ namespace EchoBot1.Services
         // IDs
         public static string UserProfileId { get; } = $"{nameof(BotStateService)}.UserProfile";
         public static string ConversationDataId { get; } = $"{nameof(BotStateService)}.ConversationData";
-
+        public static string DialogStateId { get; } = $"{nameof(BotStateService)}.DialogState";
 
         // Accessors
         public IStatePropertyAccessor<UserProfile> UserProfileAccessor { get; set; }
         public IStatePropertyAccessor<ConversationData> ConversationDataAccessor { get; set; }
+        public IStatePropertyAccessor<DialogState> DialogStateAccessor { get; set; }
         #endregion
 
         public BotStateService(ConversationState conversationState, UserState userState)
@@ -37,6 +39,7 @@ namespace EchoBot1.Services
         {
             // Initialise User State
             UserProfileAccessor = UserState.CreateProperty<UserProfile>(UserProfileId);
+            DialogStateAccessor = ConversationState.CreateProperty<DialogState>(DialogStateId);
 
             // Initialise Conversation State
             ConversationDataAccessor = ConversationState.CreateProperty<ConversationData>(ConversationDataId);
