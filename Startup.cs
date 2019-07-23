@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using EchoBot1.Bots;
 using EchoBot1.Services;
+using EchoBot1.Dialogs;
+using System;
 
 namespace EchoBot1
 {
@@ -40,8 +42,15 @@ namespace EchoBot1
             // Configure State
             ConfigureState(services);
 
+            ConfigurationDialog(services);
+
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, GreetingBot>();
+            services.AddTransient<IBot, DialogBot<MainDialog>>();
+        }
+
+        private void ConfigurationDialog(IServiceCollection services)
+        {
+            services.AddSingleton<MainDialog>();
         }
 
         public void ConfigureState(IServiceCollection services)

@@ -52,7 +52,7 @@ namespace EchoBot1.Dialogs
 
             if (promptContext.Recognized.Succeeded)
             {
-                valid = Regex.Match(promptContext.Recognized.Value, @"^(\+d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{4}$").Success;
+                valid = promptContext.Recognized.Value == "000";
             }
             return Task.FromResult(valid);
         }
@@ -119,7 +119,7 @@ namespace EchoBot1.Dialogs
 
         private async Task<DialogTurnResult> PhoneNumberStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values["callbackTimne"] = Convert.ToDateTime(((List<DateTimeResolution>)stepContext.Result).FirstOrDefault().Value);
+            stepContext.Values["callbackTime"] = Convert.ToDateTime(((List<DateTimeResolution>)stepContext.Result).FirstOrDefault().Value);
 
             return await stepContext.PromptAsync($"{nameof(BugReportDialog)}.phoneNumber", 
                 new PromptOptions
